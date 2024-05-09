@@ -38,6 +38,7 @@ namespace Player
 	{
 		player_model->initialize();
 		player_view->initialize(this);
+
 	}
 
 	void PlayerController::update()
@@ -200,8 +201,8 @@ namespace Player
 		if (event_service->pressedRightArrowKey() || event_service->pressedDKey()) 
 			moveRight();
 
-		//if (event_service->pressedLeftMouseButton()) 
-		//	processBulletFire();
+		if (event_service->pressedLeftMouseButton()) 
+			processBulletFire();
 	}
 
 	void PlayerController::moveLeft()
@@ -220,6 +221,29 @@ namespace Player
 
 		currentPosition.x = std::min(currentPosition.x, player_model->right_most_position.x);
 		player_model->setPlayerPosition(currentPosition);
+	}
+	
+	void PlayerController::processBulletFire() {
+		Bullet::
+			BulletService* bulletService =
+			Global::ServiceLocator::getInstance()->getBulletService();
+
+		// Determine the bullet's spawn position (in front of the player)
+		sf::Vector2f playerPosition = player_model->getPlayerPosition();
+		sf::Vector2f bulletSpawnPosition = playerPosition + player_model->barrel_position_offset;
+
+		// Determine the bullet's initial velocity (upwards)
+		sf::Vector2f bulletVelocity(0.f, -500.f);
+
+		
+		// Create the bullet using BulletService Instance;
+		bulletService->CreateBullet(bulletSpawnPosition, bulletVelocity);
+
+		// Reset the bullet cooldown in PlayerModel
+		//player_model->resetBulletCooldown(); 
+
+		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BULLET_FIRE);
+
 	}
 
 	void PlayerController::updateFreezDuration()

@@ -16,6 +16,7 @@ namespace Global
 	using namespace Sound;
 	using namespace Collision;
 	using namespace Particle;
+	using namespace Bullet;
 
 	ServiceLocator::ServiceLocator()
 	{
@@ -31,7 +32,7 @@ namespace Global
 		particle_service = nullptr;
 		ui_service = nullptr;
 		sound_service = nullptr;
-
+		bullet_service = nullptr;
 		createServices();
 	}
 
@@ -51,6 +52,8 @@ namespace Global
 		particle_service = new ParticleService();
 		ui_service = new UIService();
 		sound_service = new SoundService();
+		bullet_service = new BulletService();
+		
 	}
 
 	void ServiceLocator::initialize()
@@ -67,6 +70,7 @@ namespace Global
 		particle_service->initialize();
 		ui_service->initialize();
 		sound_service->initialize();
+		bullet_service->initialize();
 	}
 
 	void ServiceLocator::update()
@@ -84,6 +88,7 @@ namespace Global
 			powerup_service->update();
 			collision_service->update();
 			particle_service->update();
+			bullet_service->update();
 		}
 
 		ui_service->update();
@@ -101,6 +106,7 @@ namespace Global
 			element_service->render();
 			powerup_service->render();
 			particle_service->render();
+			bullet_service->render();
 		}
 
 		ui_service->render();
@@ -119,6 +125,7 @@ namespace Global
 		delete(sound_service);
 		delete(collision_service);
 		delete(particle_service);
+		delete(bullet_service);
 	}
 
 	ServiceLocator* ServiceLocator::getInstance()
@@ -132,6 +139,8 @@ namespace Global
 	GraphicService* ServiceLocator::getGraphicService() { return graphic_service; }
 
 	UIService* ServiceLocator::getUIService() { return ui_service; }
+
+	Bullet::BulletService* ServiceLocator::getBulletService() { return bullet_service; }
 
 	Player::PlayerService* ServiceLocator::getPlayerService() { return player_service; }
 

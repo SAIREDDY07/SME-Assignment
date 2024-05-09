@@ -11,6 +11,7 @@
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Collision/CollisionService.h"
 #include "../../header/Particle/ParticleService.h"
+#include "../../header/Bullet/BulletService.h"
 
 namespace Global
 {
@@ -29,6 +30,7 @@ namespace Global
         Sound::SoundService* sound_service;
         Collision::CollisionService* collision_service;
         Particle::ParticleService* particle_service;
+        Bullet::BulletService* bullet_service;
 
         ServiceLocator();
         ~ServiceLocator();
@@ -55,6 +57,7 @@ namespace Global
         Sound::SoundService* getSoundService();
         Collision::CollisionService* getCollisionService();
         Particle::ParticleService* getParticleService();
+        Bullet::BulletService* getBulletService();
         void deleteServiceLocator();
     };
 }
